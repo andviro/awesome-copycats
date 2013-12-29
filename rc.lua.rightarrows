@@ -57,7 +57,7 @@ run_once("unclutter")
 os.setlocale(os.getenv("LANG"))
 
 -- beautiful init
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/theme.lua")
 
 -- common
 modkey     = "Mod4"
@@ -103,7 +103,7 @@ markup      = lain.util.markup
 
 -- Textclock
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
-mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
+mytextclock = awful.widget.textclock(markup("#7788af", "%a %d %b ") .. markup("#de5e1e", " %H:%M "))
 
 -- Calendar
 lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
@@ -116,13 +116,17 @@ yawn = lain.widgets.yawn(2121137, {
     end
 })
 
+beautiful.bg_systray = "#313131"
+local systray = wibox.widget.systray()
+
 -- / fs
-fsicon = wibox.widget.imagebox(beautiful.widget_fs)
+fsicon = wibox.widget.imagebox(beautiful.widget_hdd)
 fswidget = lain.widgets.fs({
     settings  = function()
         widget:set_markup(markup("#80d9d8", fs_now.used .. "% "))
     end
 })
+fswidgetbg = wibox.widget.background(fswidget, "#313131")
 
 -- Mail IMAP check
 -- commented because it needs to be set before use
@@ -152,6 +156,7 @@ cpuwidget = lain.widgets.cpu({
         widget:set_markup(markup("#e33a6e", cpu_now.usage .. "% "))
     end
 })
+cpuwidgetbg = wibox.widget.background(cpuwidget, "#313131")
 
 -- Coretemp
 tempicon = wibox.widget.imagebox(beautiful.widget_temp)
@@ -186,17 +191,14 @@ volumewidget = lain.widgets.alsa({
 })
 
 -- Net 
-netdownicon = wibox.widget.imagebox(beautiful.widget_netdown)
---netdownicon.align = "middle"
-netdowninfo = wibox.widget.textbox()
-netupicon = wibox.widget.imagebox(beautiful.widget_netup)
---netupicon.align = "middle"
-netupinfo = lain.widgets.net({
+neticon = wibox.widget.imagebox(beautiful.widget_net)
+netinfo = lain.widgets.net({
     settings = function()
-        widget:set_markup(markup("#e54c62", net_now.sent .. " "))
-        netdowninfo:set_markup(markup("#87af5f", net_now.received .. " "))
+        widget:set_markup(markup("#e54c62", net_now.sent) .. " "
+            .. markup("#87af5f", net_now.received .. " "))
     end
 })
+netinfobg = wibox.widget.background(netinfo, "#313131")
 
 -- MEM
 memicon = wibox.widget.imagebox(beautiful.widget_mem)
@@ -231,8 +233,15 @@ memwidget = lain.widgets.mem({
     --end
 --})
 
--- Spacer
-spacer = wibox.widget.textbox(" ")
+-- Separators
+spr = wibox.widget.textbox(' ')
+arrl = wibox.widget.imagebox()
+arrl:set_image(beautiful.arrl)
+arrl_dl = wibox.widget.imagebox()
+arrl_dl:set_image(beautiful.arrl_dl)
+arrl_ld = wibox.widget.imagebox()
+arrl_ld:set_image(beautiful.arrl_ld)
+
 
 -- }}}
 
@@ -313,7 +322,6 @@ for s = 1, screen.count() do
         
     -- Widgets that are aligned to the upper left
     local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mylayoutbox[s])
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
     --left_layout:add(mpdicon)
@@ -322,7 +330,9 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the upper right
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(clockicon)
+    right_layout:add(mylayoutbox[s])
+    right_layout:add(arrl_dl)
+    right_layout:add(spr)
     right_layout:add(mytextclock)
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -341,28 +351,41 @@ for s = 1, screen.count() do
     bottom_left_layout = wibox.layout.fixed.horizontal()
     --right_layout:add(mailicon)
     --right_layout:add(mailwidget)
-    bottom_left_layout:add(netdownicon)
-    bottom_left_layout:add(netdowninfo)
-    bottom_left_layout:add(netupicon)
-    bottom_left_layout:add(netupinfo)
     bottom_left_layout:add(volicon)
     bottom_left_layout:add(volumewidget)
+    bottom_left_layout:add(spr)
+    bottom_left_layout:add(arrl_ld)
+    bottom_left_layout:add(fsicon)
+    bottom_left_layout:add(fswidgetbg)
+    bottom_left_layout:add(arrl_dl)
+    bottom_left_layout:add(spr)
     bottom_left_layout:add(memicon)
     bottom_left_layout:add(memwidget)
+    bottom_left_layout:add(spr)
+    bottom_left_layout:add(arrl_ld)
     bottom_left_layout:add(cpuicon)
-    bottom_left_layout:add(cpuwidget)
-    bottom_left_layout:add(fsicon)
-    bottom_left_layout:add(fswidget)
-    bottom_left_layout:add(weathericon)
-    bottom_left_layout:add(yawn.widget)
+    bottom_left_layout:add(cpuwidgetbg)
+    bottom_left_layout:add(arrl_dl)
+    bottom_left_layout:add(spr)
     bottom_left_layout:add(tempicon)
     bottom_left_layout:add(tempwidget)
+    bottom_left_layout:add(spr)
+    bottom_left_layout:add(arrl_ld)
+    bottom_left_layout:add(neticon)
+    bottom_left_layout:add(netinfobg)
+    bottom_left_layout:add(arrl_dl)
+    bottom_left_layout:add(spr)
+    bottom_left_layout:add(weathericon)
+    bottom_left_layout:add(yawn.widget)
     --right_layout:add(baticon)
     --right_layout:add(batwidget)
                         
     -- Widgets that are aligned to the bottom right
     bottom_right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then bottom_right_layout:add(wibox.widget.systray()) end
+    bottom_right_layout:add(spr)
+    bottom_right_layout:add(arrl)
+    bottom_right_layout:add(arrl_ld)
+    if s == 1 then bottom_right_layout:add(systray) end
                                             
     -- Now bring it all together (with the tasklist in the middle)
     bottom_layout = wibox.layout.align.horizontal()
