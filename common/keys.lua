@@ -2,7 +2,7 @@ local awful     = require("awful")
 local lain     = require("lain")
 local layouts     = require("common.layouts")
 local beautiful     = require("beautiful")
-local revelation      = require("revelation")
+--local revelation      = require("revelation")
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     -- Take a screenshot
@@ -18,7 +18,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "h", function () lain.util.tag_view_nonempty(-1) end),
     awful.key({ modkey }, "l", function () lain.util.tag_view_nonempty(1) end),
     
-    awful.key({ modkey }, "g", revelation),
+    --awful.key({ modkey }, "g", revelation),
 
     -- Default client focus
     awful.key({ modkey }, "j",
