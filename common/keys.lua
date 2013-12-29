@@ -227,4 +227,12 @@ clientbuttons = awful.util.table.join(
 
 -- Set keys
 root.keys(globalkeys)
+
+awful.menu.menu_keys = { up    = { "k", "Up" },
+                         down  = { "j", "Down" },
+                         exec  = { "Return", "Right" },
+                         enter = { "l" },
+                         back  = { "h", "Left" },
+                         close = { "q", "Escape" },
+                       }
 -- }}}

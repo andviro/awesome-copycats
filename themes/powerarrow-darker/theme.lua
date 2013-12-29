@@ -33,7 +33,7 @@ theme.notify_border                 = theme.border_focus
 theme.awful_widget_height           = 14
 theme.awful_widget_margin_top       = 2
 theme.mouse_finder_color            = "#CC9393"
-theme.menu_height                   = "16"
+theme.menu_height                   = "25"
 theme.menu_width                    = "140"
 
 theme.menu_submenu_icon             = themes_dir .. "/icons/submenu.png"
