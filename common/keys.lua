@@ -2,8 +2,23 @@ local awful     = require("awful")
 local lain     = require("lain")
 local layouts     = require("common.layouts")
 local beautiful     = require("beautiful")
+local menubar = require("menubar")
 --local revelation      = require("revelation")
 -- {{{ Key bindings
+--
+--
+function slide_to_tag(step, follow)
+        local newidx = awful.tag.getidx() + step
+        if client.focus then
+            local tag = awful.tag.gettags(client.focus.screen)[newidx]
+            if tag then
+                awful.client.movetotag(tag)
+                if follow then
+                    awful.tag.viewonly(tag)
+                end
+            end
+        end
+end
 globalkeys = awful.util.table.join(
     -- Take a screenshot
     -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
@@ -15,8 +30,17 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey }, "Escape", awful.tag.history.restore),
 
     -- Non-empty tag browsing
-    awful.key({ modkey }, "h", function () lain.util.tag_view_nonempty(-1) end),
-    awful.key({ modkey }, "l", function () lain.util.tag_view_nonempty(1) end),
+    awful.key({ modkey }, "h", awful.tag.viewprev),
+    awful.key({ modkey }, "l", awful.tag.viewnext),
+
+    awful.key({ modkey, "Shift"   }, "h",      function ()
+        slide_to_tag(-1, true)
+    end),
+
+    awful.key({ modkey, "Shift"   }, "l",      function ()
+        slide_to_tag(1, true)
+    end),
+
     
     --awful.key({ modkey }, "g", revelation),
 
@@ -79,12 +103,12 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
-    awful.key({ altkey, "Shift"   }, "l",      function () awful.tag.incmwfact( 0.05)     end),
-    awful.key({ altkey, "Shift"   }, "h",      function () awful.tag.incmwfact(-0.05)     end),
-    awful.key({ modkey, "Shift"   }, "l",      function () awful.tag.incnmaster(-1)       end),
-    awful.key({ modkey, "Shift"   }, "h",      function () awful.tag.incnmaster( 1)       end),
-    awful.key({ modkey, "Control" }, "l",      function () awful.tag.incncol(-1)          end),
-    awful.key({ modkey, "Control" }, "h",      function () awful.tag.incncol( 1)          end),
+    awful.key({ modkey,           }, "]",      function () awful.tag.incmwfact( 0.05)     end),
+    awful.key({ modkey,           }, "[",      function () awful.tag.incmwfact(-0.05)     end),
+    --awful.key({ modkey, "Shift"   }, "l",      function () awful.tag.incnmaster(-1)       end),
+    --awful.key({ modkey, "Shift"   }, "h",      function () awful.tag.incnmaster( 1)       end),
+    --awful.key({ modkey, "Control" }, "l",      function () awful.tag.incncol(-1)          end),
+    --awful.key({ modkey, "Control" }, "h",      function () awful.tag.incncol( 1)          end),
     awful.key({ modkey,           }, "space",  function () awful.layout.inc(layouts,  1)  end),
     awful.key({ modkey, "Shift"   }, "space",  function () awful.layout.inc(layouts, -1)  end),
     awful.key({ modkey, "Control" }, "n",      awful.client.restore),
@@ -101,6 +125,9 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
     awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
+
+    -- Menubar
+    awful.key({ modkey }, "p", function() menubar.show() end),
 
     -- ALSA volume control
     awful.key({ altkey }, "Up",
@@ -220,7 +247,8 @@ for i = 1, 9 do
                       if client.focus and tag then
                           awful.client.toggletag(tag)
                       end
-                  end))
+                  end)
+    )
 end
 
 clientbuttons = awful.util.table.join(

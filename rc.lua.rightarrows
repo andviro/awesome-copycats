@@ -49,7 +49,7 @@ function run_once(cmd)
 end
 
 run_once("urxvtd")
-run_once("unclutter")
+--run_once("unclutter")
 -- }}}
 
 -- {{{ Variable definitions
@@ -63,26 +63,58 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/t
 modkey     = "Mod4"
 altkey     = "Mod1"
 terminal   = "urxvtc" or "xterm"
-editor     = os.getenv("EDITOR") or "nano" or "vi"
-editor_cmd = terminal .. " -e " .. editor
+env = {
+--  browser = "google-chrome" .. " --proxy-server=http://localhost:8118",
+--  browser = "google-chrome",
+--  browser = "google-chrome",
+  browser = "x-www-browser",
+  term = terminal,
+  edit = terminal .. " -name Vim -e /usr/bin/vim",
+  mail = terminal .. " -name Mail -e mutt -y",
+  news = terminal .. " -name News -e newsbeuter",
+  mc = terminal .. " -name MC -e mc",
+}
 
--- user defined
-browser    = "x-www-browser"
-browser2   = "dwb"
-gui_editor = "gvim"
-graphics   = "gimp"
-mail       = terminal .. " -e mutt "
+editor_cmd = env.edit
 
 local layouts = require("common/layouts")
 
 -- {{{ Tags
+--
 tags = {
-   names = { "1", "term", "web", "media", "files", "other" },
-   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
+   names = { "1", "mail", "web", "news", "media", "other" },
+   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] },
+   rules = {nil,
+        {class = "URxvt", instance="Mail"},
+        {class="Firefox"},
+        {class = "URxvt", instance="News"},
+        nil, nil},
+   autorun = {nil, env.mail, env.browser, env.news, nil, nil}
 }
+
+function autorun(tag, command, rule)
+    if tag.selected then
+        local found = false
+        for _, c in pairs(tag:clients()) do
+            if awful.rules.match(c, rule) then
+                found = true
+                break
+            end
+        end
+        if not found then
+            awful.util.spawn(command)
+        end
+    end
+end
+
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
    tags[s] = awful.tag(tags.names, s, tags.layout)
+   for k, tag in pairs(awful.tag.gettags(s)) do
+       tag:connect_signal("property::selected", function(t)
+           autorun(t, tags.autorun[k], tags.rules[k])
+       end)
+   end
 end
 -- }}}
 
@@ -131,7 +163,7 @@ fswidgetbg = wibox.widget.background(fswidget, "#313131")
 -- Mail IMAP check
 -- commented because it needs to be set before use
 mailicon = wibox.widget.imagebox()
-mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail) end)))
+mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(env.mail) end)))
 mailicon:set_image(beautiful.widget_mail)
 mailwidget = lain.widgets.imap({
     timeout  = 30,
