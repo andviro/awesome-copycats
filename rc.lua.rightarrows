@@ -49,7 +49,7 @@ function run_once(cmd)
 end
 
 run_once("urxvtd")
---run_once("unclutter")
+run_once("unclutter")
 -- }}}
 
 -- {{{ Variable definitions
@@ -162,23 +162,23 @@ fswidgetbg = wibox.widget.background(fswidget, "#313131")
 
 -- Mail IMAP check
 -- commented because it needs to be set before use
-mailicon = wibox.widget.imagebox()
-mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(env.mail) end)))
-mailicon:set_image(beautiful.widget_mail)
-mailwidget = lain.widgets.imap({
-    timeout  = 30,
-    server   = "imap.gmail.com",
-    mail     = "andviro@gmail.com",
-    password = "kring get gmail andviro@gmail.com",
-    settings = function()
-        if mailcount > 0 then
-            widget:set_markup(markup("#cc0000", mailcount .. " "))
-        else
-            widget:set_markup(markup("#cccccc", mailcount .. " "))
-        end
-    end
-})
-mailwidgetbg = wibox.widget.background(mailwidget, "#313131")
+--mailicon = wibox.widget.imagebox()
+--mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(env.mail) end)))
+--mailicon:set_image(beautiful.widget_mail)
+--mailwidget = lain.widgets.imap({
+    --timeout  = 30,
+    --server   = "imap.gmail.com",
+    --mail     = "andviro@gmail.com",
+    --password = "kring get gmail andviro@gmail.com",
+    --settings = function()
+        --if mailcount > 0 then
+            --widget:set_markup(markup("#cc0000", mailcount .. " "))
+        --else
+            --widget:set_markup(markup("#cccccc", mailcount .. " "))
+        --end
+    --end
+--})
+--mailwidgetbg = wibox.widget.background(mailwidget, "#313131")
 
 -- CPU
 cpuicon = wibox.widget.imagebox()
@@ -381,10 +381,10 @@ for s = 1, screen.count() do
             
     -- Widgets that are aligned to the bottom left
     bottom_left_layout = wibox.layout.fixed.horizontal()
-    bottom_left_layout:add(mailicon)
-    bottom_left_layout:add(mailwidgetbg)
-    bottom_left_layout:add(arrl_dl)
-    bottom_left_layout:add(spr)
+    --bottom_left_layout:add(mailicon)
+    --bottom_left_layout:add(mailwidgetbg)
+    --bottom_left_layout:add(arrl_dl)
+    --bottom_left_layout:add(spr)
     bottom_left_layout:add(volicon)
     bottom_left_layout:add(volumewidget)
     bottom_left_layout:add(spr)
