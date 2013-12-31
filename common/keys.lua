@@ -2,7 +2,7 @@ local awful     = require("awful")
 local lain     = require("lain")
 local layouts     = require("common.layouts")
 local beautiful     = require("beautiful")
-local menubar = require("menubar")
+--local menubar = require("menubar")
 --local revelation      = require("revelation")
 -- {{{ Key bindings
 --
@@ -127,7 +127,7 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
 
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end),
+    --awful.key({ modkey }, "p", function() menubar.show() end),
 
     -- ALSA volume control
     awful.key({ altkey }, "Up",
@@ -140,16 +140,16 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("amixer -q set Master 1%-")
             volumewidget.update()
         end),
-    awful.key({ altkey }, "m",
-        function ()
-            awful.util.spawn("amixer -q set Master playback toggle")
-            volumewidget.update()
-        end),
-    awful.key({ altkey, "Control" }, "m",
-        function ()
-            awful.util.spawn("amixer -q set Master playback 100%")
-            volumewidget.update()
-        end),
+    --awful.key({ altkey }, "m",
+        --function ()
+            --awful.util.spawn("amixer -q set Master playback toggle")
+            --volumewidget.update()
+        --end),
+    --awful.key({ altkey, "Control" }, "m",
+        --function ()
+            --awful.util.spawn("amixer -q set Master playback 100%")
+            --volumewidget.update()
+        --end),
 
     -- MPD control
     awful.key({ altkey, "Control" }, "Up",
