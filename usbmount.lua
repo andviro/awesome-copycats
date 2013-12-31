@@ -30,7 +30,7 @@ local function worker(args)
         usbmount_now.n = 0
 
         for l in df:lines() do
-            mpoint = l:match("^[%w/-_.]+ on /media/usb([%w]+)")
+            mpoint = l:match("^[%w/-_.]+ on /media/([%w]+)")
             if mpoint ~= nil then
                 usbmount_now.n = usbmount_now.n + 1
             end

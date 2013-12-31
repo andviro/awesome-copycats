@@ -217,7 +217,7 @@ tempwidget = lain.widgets.temp({
 usbwidget = usbmount({
     settings = function()
         if usbmount_now.n ~= 0 then
-            widget:set_markup(markup("pink", "[usb: " .. usbmount_now.n .. "]"))
+            widget:set_markup(markup("pink", "usb: " .. usbmount_now.n .. ""))
         end
     end
 })
