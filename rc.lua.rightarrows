@@ -213,6 +213,15 @@ tempwidget = lain.widgets.temp({
     --end
 --})
 
+-- USB mounts
+usbwidget = usbmount({
+    settings = function()
+        if usbmount_now.n ~= 0 then
+            widget:set_markup(markup("pink", "[usb: " .. usbmount_now.n .. "]"))
+        end
+    end
+})
+
 -- ALSA volume
 volicon = wibox.widget.imagebox(beautiful.widget_vol)
 volumewidget = lain.widgets.alsa({
@@ -420,6 +429,7 @@ for s = 1, screen.count() do
     bottom_right_layout = wibox.layout.fixed.horizontal()
     bottom_right_layout:add(spr)
     bottom_right_layout:add(arrl)
+    bottom_right_layout:add(usbwidget)
     bottom_right_layout:add(arrl_ld)
     if s == 1 then bottom_right_layout:add(systray) end
                                             

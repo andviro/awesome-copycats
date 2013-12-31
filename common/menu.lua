@@ -18,7 +18,7 @@ mymainmenu = awful.menu({ items =
   {
     { "MC", env.mc },
     { "Terminal", env.term },
-    { "Unmount", "/home/andrew/devel/scripts/umount/eject_usb" },
+    { "Unmount", "eject_usb" },
     { "Apps", menu_items },
     { "Exit", myexitmenu}
   }
