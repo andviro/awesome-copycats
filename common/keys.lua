@@ -2,6 +2,7 @@ local awful     = require("awful")
 local lain     = require("lain")
 local layouts     = require("common.layouts")
 local beautiful     = require("beautiful")
+local drop      = require("scratchdrop")
 --local menubar = require("menubar")
 --local revelation      = require("revelation")
 -- {{{ Key bindings
@@ -122,9 +123,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
 
     -- Widgets popups
-    awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
-    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
-    awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
+    --awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
+    --awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
+    --awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
 
     -- Menubar
     --awful.key({ modkey }, "p", function() menubar.show() end),
