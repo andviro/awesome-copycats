@@ -83,14 +83,14 @@ local layouts = require("common/layouts")
 -- {{{ Tags
 --
 tags = {
-   names = { "1", "mail", "web", "news", "media", "other" },
+   names = { "1", "2", "web", "news", "media", "other" },
    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] },
    rules = {nil,
-        {class = "URxvt", instance="Mail"},
+        {nil},
         {class="Firefox"},
         {class = "URxvt", instance="News"},
         nil, nil},
-   autorun = {nil, env.mail, env.browser, env.news, nil, nil}
+   autorun = {nil, nil, env.browser, env.news, nil, nil}
 }
 
 function autorun(tag, command, rule)
@@ -375,7 +375,7 @@ for s = 1, screen.count() do
     right_layout:add(mylayoutbox[s])
     right_layout:add(arrl_dl)
     right_layout:add(spr)
-    right_layout:add(mytextclock)
+    if s == 1 then right_layout:add(systray) end
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -430,7 +430,8 @@ for s = 1, screen.count() do
     bottom_right_layout:add(arrl)
     bottom_right_layout:add(usbwidget)
     bottom_right_layout:add(arrl_ld)
-    if s == 1 then bottom_right_layout:add(systray) end
+    bottom_right_layout:add(mytextclock)
+    --if s == 1 then bottom_right_layout:add(systray) end
                                             
     -- Now bring it all together (with the tasklist in the middle)
     bottom_layout = wibox.layout.align.horizontal()
