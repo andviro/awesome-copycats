@@ -14,6 +14,7 @@ local awful = require("awful")
 local table = table
 local capi = {
     screen = screen,
+    mouse = mouse,
 }
 
 -- Eminent: Effortless wmii-style dynamic tagging
@@ -54,4 +55,24 @@ awful.widget.taglist.filter.all = function (t, args)
     if t.selected or #t:clients() > 0 then
         return orig.filter(t, args)
     end
+end
+
+-- View tag by relative index
+awful.tag.viewidx = function (i, screen)
+    local screen = screen or capi.mouse.screen
+    local tags = awful.tag.gettags(screen)
+    local showntags = {}
+    for k, t in ipairs(tags) do
+        if not awful.tag.getproperty(t, "hide") and (#t:clients() > 0 or t.selected) then
+            table.insert(showntags, t)
+        end
+    end
+    local sel = awful.tag.selected(screen)
+    awful.tag.viewnone(screen)
+    for k, t in ipairs(showntags) do
+        if t == sel then
+            showntags[awful.util.cycle(#showntags, k + i)].selected = true
+        end
+    end
+    capi.screen[screen]:emit_signal("tag::history::update")
 end
