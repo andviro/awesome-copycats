@@ -190,6 +190,7 @@ batupd = lain.widgets.bat({
                 batbar:set_color(beautiful.fg_normal)
                 baticon:set_image(beautiful.bat)
             elseif bat_perc > 15 then
+                batbar:set_color(beautiful.fg_normal)
                 baticon:set_image(beautiful.bat_low)
             else
                 batbar:set_color("#EB8F8F")
@@ -231,7 +232,7 @@ diskwidget:set_bgimage(beautiful.widget_bg)
 
 -- ALSA volume bar
 volicon = wibox.widget.imagebox(beautiful.vol)
-volume = lain.widgets.alsabar({width = 55, ticks_size = 6,
+volume = lain.widgets.alsabar({width = 55, ticks = true, ticks_size = 6,
 settings = function()
     if volume_now.status == "off" then
         volicon:set_image(beautiful.vol_mute)
@@ -361,7 +362,7 @@ for s = 1, screen.count() do
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    --layout:set_middle(mytasklist[s])
+    layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
 
     mywibox[s]:set_widget(layout)
@@ -705,10 +706,8 @@ end)
 client.connect_signal("focus",
     function(c)
         if c.maximized_horizontal == true and c.maximized_vertical == true then
-            c.border_width = 0
             c.border_color = beautiful.border_normal
         else
-            c.border_width = beautiful.border_width
             c.border_color = beautiful.border_focus
         end
     end)
@@ -728,7 +727,6 @@ for s = 1, screen.count() do screen[s]:connect_signal("arrange", function ()
                 -- No borders with only one visible client
                 elseif #clients == 1 or layout == "max" then
                     clients[1].border_width = 0
-                    awful.client.moveresize(0, 0, 2, 2, clients[1])
                 else
                     c.border_width = beautiful.border_width
                 end

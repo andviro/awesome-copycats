@@ -83,7 +83,7 @@ Installation
 Using git you can have the full master branch: ::
 
     git clone https://github.com/copycat-killer/awesome-copycats.git
-    mv -u awesome-copycats ~/.config/awesome
+    mv awesome-copycats/* ~/.config/awesome; rmdir awesome-copycats
     cd ~/.config/awesome
     git submodule init
     git submodule update
@@ -100,7 +100,9 @@ Switch a theme this way: ::
     cd ~/.config/awesome
     cp rc.lua.theme rc.lua
 
-then customize your ``rc.lua`` and restart Awesome (``Mod4 + ctrl + r``).
+Alternatively, you can use `switch-theme.sh`_, which will also update to the latest commit.
+
+Then, eventually customize your ``rc.lua``, and restart Awesome (``Mod4 + ctrl + r``).
 
 Notes
 =====
@@ -117,7 +119,7 @@ Blackburn and Dremora use Icons_: be sure to have bitmaps enabled if running und
 
 Freedesktop uses ``/etc/mime.types``, so be sure to have MIME support installed.
 
-Eminent, freedesktop and scratchdrop are third-party softwares: **rely on their creators if they cause you issues**.
+Eminent, freedesktop and scratchdrop are third-party softwares: **either disable them or rely on their creators if they cause you** slowdowns_ **or** issues_ **.**
 
 Feel free to email me if you have any request.
 
@@ -130,6 +132,7 @@ Feel free to email me if you have any request.
 .. _foozer: http://dotshare.it/dots/499/
 .. _1: https://github.com/copycat-killer/awesome-copycats/archive/master.zip
 .. _2: https://github.com/copycat-killer/lain/archive/master.zip
+.. _`switch-theme.sh`: https://github.com/copycat-killer/awesome-copycats/issues/36
 .. _lain: https://github.com/copycat-killer/lain
 .. _dependencies: https://github.com/copycat-killer/lain/wiki
 .. _Terminus: http://terminus-font.sourceforge.net/
@@ -138,3 +141,5 @@ Feel free to email me if you have any request.
 .. _Icons: https://github.com/copycat-killer/dots/tree/master/.fonts
 .. _Debian: http://weiwu.sdf.org/100921.html
 .. _Ubuntu: https://wiki.ubuntu.com/Fonts#Enabling_Bitmapped_Fonts
+.. _slowdowns: https://github.com/copycat-killer/awesome-copycats/issues/24#issuecomment-33289499
+.. _issues: https://github.com/copycat-killer/awesome-copycats/issues/12
