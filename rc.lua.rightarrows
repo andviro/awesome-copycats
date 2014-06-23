@@ -71,7 +71,7 @@ env = {
   browser = "x-www-browser",
   term = terminal,
   edit = terminal .. " -name Vim -e /usr/bin/vim",
-  mail = terminal .. " -name Mail -e mutt -y",
+  mail = "thunderbird",
   news = terminal .. " -name News -e newsbeuter",
   mc = terminal .. " -name MC -e mc",
 }
