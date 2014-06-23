@@ -1,16 +1,16 @@
 local awful     = require("awful")
 local layouts = require("common/layouts")
 tags = {
-   names = { "1", "2", "web", "mail", "skype", "icq" },
+   names = { "1", "2", "web", "news", "mail", "icq" },
    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] },
    rules = {nil,
         {nil},
         {class="Firefox"},
+        {class = "URxvt", instance="News"},
         {class = "Mail"},
-        {class = "Skype"},
         {class = "Pidgin"},
     },
-   autorun = {nil, nil, env.browser, env.mail, "skype", "pidgin"}
+   autorun = {nil, nil, env.browser, env.news, env.mail, "pidgin"}
 }
 
 function autorun(tag, command, rule)
