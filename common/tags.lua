@@ -7,7 +7,7 @@ tags = {
         {nil},
         {class="Firefox"},
         {class = "URxvt", instance="News"},
-        {class = "Mail"},
+        {class = "Mail", instance="Thunderbird"},
         {class = "Pidgin"},
     },
    autorun = {nil, nil, env.browser, env.news, env.mail, "pidgin"}
