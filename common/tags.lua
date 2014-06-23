@@ -6,7 +6,7 @@ tags = {
    rules = {nil,
         {nil},
         {class="Firefox"},
-        {class = "Mail"},
+        {class = "Mail", instance="Thunderbird"},
         {class = "Skype"},
         {class = "Pidgin"},
     },
