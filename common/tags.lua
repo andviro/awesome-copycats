@@ -5,7 +5,7 @@ tags = {
    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] },
    rules = {nil,
         {nil},
-        {class="Firefox"},
+        {class="Chromium-browser"},
         {class = "URxvt", instance="News"},
         {class = "Mail"},
         {class = "Pidgin"},
