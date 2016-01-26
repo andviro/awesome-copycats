@@ -18,7 +18,7 @@ mymainmenu = awful.menu({ items =
   {
     { "MC", env.mc },
     { "Terminal", env.term },
-    { "Lock", "mate-screensaver-command --lock" },
+    { "Lock", "i3lock -c 000000" },
     { "Apps", menu_items },
     { "Exit", myexitmenu}
   }

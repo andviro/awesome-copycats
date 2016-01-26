@@ -108,9 +108,12 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
 -- Weather
 weathericon = wibox.widget.imagebox(beautiful.widget_weather)
-yawn = lain.widgets.yawn(2121137, {
+myweather = lain.widgets.weather({
+    city_id = 553915, -- Kaluga, RU
     settings = function()
-        widget:set_markup(markup("#eca4c4", forecast:lower() .. " @ " .. units .. "°C "))
+        descr = weather_now["weather"][1]["description"]:lower()
+        units = math.floor(weather_now["main"]["temp"])
+        widget:set_markup(markup("#eca4c4", descr .. " @ " .. units .. "°C "))
     end
 })
 
@@ -403,7 +406,7 @@ for s = 1, screen.count() do
     bottom_left_layout:add(arrl_dl)
     bottom_left_layout:add(spr)
     bottom_left_layout:add(weathericon)
-    bottom_left_layout:add(yawn.widget)
+    bottom_left_layout:add(myweather)
     --right_layout:add(baticon)
     --right_layout:add(batwidget)
                         
