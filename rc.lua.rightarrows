@@ -253,7 +253,18 @@ arrl_ld:set_image(beautiful.arrl_ld)
 -- }}}
 
 -- {{{ Layout
-
+function delay_raise ()
+   -- 5 ms ages in computer time, but I won't notice it.
+   local raise_timer = timer { timeout = 0.005 }
+   raise_timer:connect_signal("timeout",
+             function()
+                if client.focus then
+                   client.focus:raise()
+                end
+                raise_timer:stop()
+   end)
+   raise_timer:start()
+end
 -- Create a wibox for each screen and add it
 mywibox = {}
 mybottomwibox = {}
@@ -282,6 +293,7 @@ mytasklist.buttons = awful.util.table.join(
                                                   end
                                                   -- This will also un-minimize
                                                   -- the client, if needed
+                                                  --delay_raise()
                                                   client.focus = c
                                                   c:raise()
                                               end
@@ -296,11 +308,17 @@ mytasklist.buttons = awful.util.table.join(
                                           end),
                      awful.button({ }, 4, function ()
                                               awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
+                                              if client.focus then
+                                                  --delay_raise()
+                                                  client.focus:raise()
+                                              end
                                           end),
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
+                                              if client.focus then
+                                                  --delay_raise()
+                                                  client.focus:raise()
+                                              end
                                           end))
 
 for s = 1, screen.count() do
