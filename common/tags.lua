@@ -8,7 +8,7 @@ tags = {
         nil,
         --{class="Chromium-browser"},
         --{class="Firefox"},
-        nil
+        nil,
         nil,
         nil,
         nil,
