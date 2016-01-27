@@ -7,12 +7,13 @@ tags = {
         nil,
         nil,
         --{class="Chromium-browser"},
-        {class="Firefox"},
+        --{class="Firefox"},
+        nil
         nil,
         nil,
         nil,
     },
-    autorun = {nil, nil, env.browser, nil, nil, nil}
+    autorun = {nil, nil, nil, nil, nil, nil}
 }
 
 function autorun(tag, command, rule)
