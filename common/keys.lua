@@ -21,6 +21,33 @@ function slide_to_tag(step, follow)
         end
 end
 
+function slide(step, follow)
+    if screen.count() > 1 then
+        if client.focus then
+            awful.client.movetoscreen(client.focus,client.focus.screen+step)
+            client.focus:raise()
+        end
+    else
+        slide_to_tag(step, follow)
+    end
+end
+
+function viewprev()
+    if screen.count() > 1 then
+        awful.screen.focus_relative(-1)
+    else
+        awful.tag.viewprev()
+    end
+end
+
+function viewnext()
+    if screen.count() > 1 then
+        awful.screen.focus_relative(1)
+    else
+        awful.tag.viewnext()
+    end
+end
+
 globalkeys = awful.util.table.join(
     -- Take a screenshot
     -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
@@ -32,15 +59,15 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey }, "Escape", awful.tag.history.restore),
 
     -- Non-empty tag browsing
-    awful.key({ modkey }, "h", awful.tag.viewprev),
-    awful.key({ modkey }, "l", awful.tag.viewnext),
+    awful.key({ modkey }, "h", viewprev),
+    awful.key({ modkey }, "l", viewnext),
 
     awful.key({ modkey, "Shift"   }, "h",      function ()
-        slide_to_tag(-1, true)
+        slide(-1, true)
     end),
 
     awful.key({ modkey, "Shift"   }, "l",      function ()
-        slide_to_tag(1, true)
+        slide(1, true)
     end),
 
     
