@@ -17,11 +17,11 @@ awful.rules.rules = {
     { rule = { class = "URxvt" },
           properties = { opacity = 0.99 } },
 
-    { rule = { class = "Firefox" },
-          properties = { tag = tags[1][3] } },
+    --{ rule = { class = "Firefox" },
+          --properties = { tag = tags[1][3] } },
 
-    { rule = { class = "Skype" },
-          properties = { tag = tags[1][6] } },
+    --{ rule = { class = "Skype" },
+          --properties = { tag = tags[1][6] } },
 
     { rule = { class = "URxvt", instance = "Mail" },
           properties = { tag = tags[1][2] } },
